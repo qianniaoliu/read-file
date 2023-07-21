@@ -24,6 +24,9 @@ public class ReadFileDataScheduled implements InitializingBean, ResourceLoaderAw
 
     private final List<String> data = new ArrayList<>();
 
+    private final static String PATH = "file:D:\\CV\\Pro_CV\\traffic_log.txt";
+//    private final static String PATH = "file:/Users/shenlong/Documents/workspace/dev/temp/traffic_log.txt";
+
     private ResourceLoader resourceLoader;
 
     private final ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
@@ -31,7 +34,7 @@ public class ReadFileDataScheduled implements InitializingBean, ResourceLoaderAw
     private void start() {
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             List<String> tempData = new ArrayList<>();
-            Resource resource = resourceLoader.getResource("classpath:/static/traffic_log.txt");
+            Resource resource = resourceLoader.getResource(PATH);
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
